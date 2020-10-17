@@ -1,0 +1,150 @@
+#Projeto SQL | Raphael Santos
+#Acesse os arquivos SQL: 
+Estados.xls <https://bit.ly/355fiv6>
+Dados.xls <https://bit.ly/2FBQx0D>
+Texto.xls <https://bit.ly/2H2D7vA>
+G20.xls <https://bit.ly/37gyGYI>
+G8.xls <https://bit.ly/353uV66>
+
+#1 – Criando banco de dados:
+Create Database TESTE
+
+#2 – Create Table, Data type, Constraints, Primary Key:
+CREATE TABLE Estados (
+ID INT,
+Países VARCHAR (50),
+Capital VARCHAR (50),
+IDH FLOAT,
+PIB FLOAT,
+PRIMARY KEY (ID));
+
+#3 – Insert Into, Importar e Exportar dados:
+Select * from dbo.teste;
+
+Insert Into dbo.teste (ID, Países, Capital, IDH, PIB)
+values (230, 'NeverLand', 'Desconhecida', 1, 1);
+Insert Into dbo.teste (ID, Países, Capital, IDH, PIB)
+values (231, 'teste', 'xxx', 0, 0);
+
+#4 – Alter Table, Update, Delete, Drop Column ou Truncate:
+Alter table Estados
+add Continente VARCHAR (50);
+Select * from Estados;
+
+Update Estados
+set Continente = 'indefinido'
+where ID = 1;
+Select * from Estados;
+
+Delete from Estados
+where Continente is null;
+select * from Estados;
+
+Alter table Estados
+Drop Column Continente;
+Select * from Estados;
+
+Truncate table Estados
+select * from Estados
+
+#5 – Funções Distinct, Select, Where, Between, And, As, Order By, Like, Or, Top, Case:
+select distinct Continente
+from Estados;
+
+select países, IDH, PIB
+from Estados;
+
+select países, IDH, PIB
+from Estados
+where IDH >= '0,800';
+
+select * from Estados
+where PIB between 0.5 and 1
+
+select Países, IDH AS Melhores
+from Estados
+Order by IDH desc;
+
+select * from Estados
+where Capital like 'Cidade%'
+
+select * from Estados
+where Continente = 'América' or Continente = 'Ásia';
+
+select top 10 * from Estados
+order by PIB ASC
+
+select Países, IDH,
+case
+when IDH >= '0,700' then 'desenvolvido'
+when IDH <= '0,500' then 'subdesenvolvido'
+else 'emergente'
+end as 'Status'
+from Estados;
+
+#6 – Funções Count, Sum, Max, Min, Avg, Round, Group By, Having:
+select count (*) from Estados
+where IDH <= '0,700';
+
+select sum(PIB) from Estados
+
+select max(PIB) from Estados
+
+select avg(PIB) from Estados;
+
+select round(avg(PIB), 2) from Estados;
+
+select continente, round(avg(IDH), 3)
+from Estados
+group by continente;
+
+select Continente, round(avg(IDH), 3), count(*)
+from Estados
+group by Continente
+having count(*) > 1
+
+#7 - Inner Join ou Join:
+select * from Texto
+join Dados
+on Texto.ID = Dados.ID;
+
+select * from Texto
+join Dados on Texto.ID = Dados.ID
+where Texto.ID = 29;
+
+#8 - Left Join ou Right Join:
+Insert Into Dados(ID, IDH, PIB)
+values (231, 1, 1);
+
+Insert Into Texto(ID, Países, Capital, Continente)
+values (232, 'Atlântida', 'Atlantis', 'Europa');
+
+select * from Dados
+left join Texto on Dados.ID = Texto.ID
+where Texto.ID is null;
+
+select * from Dados
+right join Texto on Dados.ID = Texto.ID
+where Texto.ID is not null;
+
+#9 - Cross Join, Full Outer Join, Union:
+Select * from Estados
+Cross Join Planeta
+
+Select * from Estados
+Cross Join G20
+where Estados.ID = G20.ID;
+
+Select Estados.ID, Estados.Países, G20.ID, G20.Países from Estados
+Full outer join G20 on Estados.ID=G20.ID;
+
+select Continente from Estados
+union
+select Planeta from Planeta
+
+#10 - Primary Key vs Foreign Key:
+Create table Mundo (
+ID_Estados INT FOREIGN KEY REFERENCES Estados(ID),
+Países VARCHAR(50),
+G20 VARCHAR(50),
+G8 VARCHAR(50));
