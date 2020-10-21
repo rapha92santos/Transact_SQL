@@ -1,10 +1,10 @@
 #Projeto SQL | Raphael Santos
 #Acesse os arquivos SQL: 
-Estados.xls <https://bit.ly/355fiv6>
-Dados.xls <https://bit.ly/2FBQx0D>
-Texto.xls <https://bit.ly/2H2D7vA>
-G20.xls <https://bit.ly/37gyGYI>
-G8.xls <https://bit.ly/353uV66>
+#Estados.xls <https://bit.ly/355fiv6>
+#Dados.xls <https://bit.ly/2FBQx0D>
+#Texto.xls <https://bit.ly/2H2D7vA>
+#G20.xls <https://bit.ly/37gyGYI>
+#G8.xls <https://bit.ly/353uV66>
 
 #1 – Criando banco de dados:
 Create Database TESTE
